@@ -1,31 +1,28 @@
-package com.davi.shop.entities;
+package com.davi.shop.dto;
 
+import com.davi.shop.entities.Product;
+import com.davi.shop.entities.ProductCategory;
 import jakarta.persistence.*;
 
 import java.util.Set;
 
-@Entity
-@Table(name = "product_category")
-public class ProductCategory {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ProductCategoryDTO {
     private Long id;
-
-    @Column(name = "category_name")
     private String categoryName;
-
-    @OneToMany(mappedBy = "category")
     private Set<Product> products;
 
-    public ProductCategory() {
-    }
-
-    public ProductCategory(Long id, String categoryName) {
+    public ProductCategoryDTO(Long id, String categoryName) {
         this.id = id;
         this.categoryName = categoryName;
     }
 
+    public ProductCategoryDTO(ProductCategory entity) {
+        id = entity.getId();
+        categoryName = entity.getCategoryName();
+    }
+
+    public ProductCategoryDTO() {
+    }
 
     public Long getId() {
         return id;
@@ -41,5 +38,9 @@ public class ProductCategory {
 
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
+    }
+
+    public Set<Product> getProducts() {
+        return products;
     }
 }
